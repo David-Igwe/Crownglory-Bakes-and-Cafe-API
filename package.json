@@ -1,0 +1,22 @@
+{
+  "name": "crownglory-bakes-and-cafe-api",
+  "version": "1.0.0",
+  "description": "The menu and order API for the Crownglory Bakes & Cafe Web Application",
+  "keywords": [
+    "API",
+    "React"
+  ],
+  "license": "ISC",
+  "author": "David Igweamaka",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.18.2"
+  }
+}
