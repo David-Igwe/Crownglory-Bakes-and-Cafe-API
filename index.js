@@ -18,6 +18,12 @@ db.once('open', () => {
 
 const app = express();
 
+//CORS HANDLING
+const cors = require('cors');
+
+// Enable CORS for all routes and origins
+app.use(cors());
+
 app.get("/menu", (req, res) => {
   res.send(menu);
 });
