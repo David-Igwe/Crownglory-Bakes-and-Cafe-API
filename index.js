@@ -1,50 +1,48 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const express = require("express");
-const menu = require("./menu/menu.js");
-const Order = require("./order/order.js");
+const Category = require("./models/category.js");
+const Item = require("./models/item.js");
+
 
 //CONNECTING TO DATABASE TO PROCESS ORDERS
-const mongoose = require('mongoose');
-const dbUrl = process.env.DB_URL;
-mongoose.connect(dbUrl);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Connection error'));
-db.once('open', () => {
-    console.log('Database connected');
-});
+const connectDB = require("./utils/connectDB.js");
+connectDB();
 
 const app = express();
 
 //CORS HANDLING
-const cors = require('cors');
+const cors = require("cors");
 
 // Enable CORS for all routes and origins
 app.use(cors());
 
-app.get("/menu", (req, res) => {
+app.get("/menu", async (req, res) => {
+  const menu = await Category.find({});
   res.send(menu);
 });
 
-app.get("/order/:_id", async (req, res) => {
-  const { _id } = req.params;
-  const order = await Order.findById(_id);
-  res.send(order);
+app.get("/menu/:categoryName", async (req, res) => {
+  const {categoryName} = req.params
+  const category = await Category.findOne({name: categoryName});
+  res.send(category);
 });
 
-app.post("/order/new", async (req, res) => {
-  const newOrder = new Order(req.body);
-  await newOrder.save();
-  res.end();
-});
+// app.get("/order/:_id", async (req, res) => {
+//   const { _id } = req.params;
+//   const order = await Order.findById(_id);
+//   res.send(order);
+// });
 
-app.patch("/order/:_id", async (req, res) => {
-  const { _id } = req.params;
-  await Order.findByIdAndUpdate(_id, req.body);
-  res.end();
-});
+// app.post("/order/new", async (req, res) => {
+//   const newOrder = new Order(req.body);
+//   await newOrder.save();
+//   res.end();
+// });
+
+// app.patch("/order/:_id", async (req, res) => {
+//   const { _id } = req.params;
+//   await Order.findByIdAndUpdate(_id, req.body);
+//   res.end();
+// });
 
 app.listen(3000, () => {
   console.log("Serving on port 3000");
