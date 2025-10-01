@@ -22,7 +22,7 @@ app.get("/menu", async (req, res) => {
 
 app.get("/menu/:categoryName", async (req, res) => {
   const {categoryName} = req.params
-  const category = await Category.findOne({name: categoryName});
+  const category = await Category.findOne({name: categoryName}).populate('items');
   res.send(category);
 });
 
