@@ -26,6 +26,12 @@ app.get("/menu/:categoryName", async (req, res) => {
   res.send(category);
 });
 
+app.get("/menu/:categoryName/:itemId", async (req, res) => {
+  const {itemId} = req.params
+  const item = await Item.findById(itemId)
+  res.send(item)
+});
+
 // app.get("/order/:_id", async (req, res) => {
 //   const { _id } = req.params;
 //   const order = await Order.findById(_id);
