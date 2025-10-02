@@ -1,6 +1,7 @@
 const express = require("express");
 const Category = require("./models/category.js");
 const Item = require("./models/item.js");
+const Order = require("./models/order.js");
 
 
 //CONNECTING TO DATABASE TO PROCESS ORDERS
@@ -32,23 +33,23 @@ app.get("/menu/:categoryName/:itemId", async (req, res) => {
   res.send(item)
 });
 
-// app.get("/order/:_id", async (req, res) => {
-//   const { _id } = req.params;
-//   const order = await Order.findById(_id);
-//   res.send(order);
-// });
+app.get("/order/:orderId", async (req, res) => {
+  const { orderId } = req.params;
+  const order = await Order.findById(orderId);
+  res.send(order);
+});
 
-// app.post("/order/new", async (req, res) => {
-//   const newOrder = new Order(req.body);
-//   await newOrder.save();
-//   res.end();
-// });
+app.post("/order/new", async (req, res) => {
+  const newOrder = new Order(req.body);
+  await newOrder.save();
+  res.end();
+});
 
-// app.patch("/order/:_id", async (req, res) => {
-//   const { _id } = req.params;
-//   await Order.findByIdAndUpdate(_id, req.body);
-//   res.end();
-// });
+app.patch("/order/:_id", async (req, res) => {
+  const { _id } = req.params;
+  await Order.findByIdAndUpdate(_id, req.body);
+  res.end();
+});
 
 app.listen(3000, () => {
   console.log("Serving on port 3000");
