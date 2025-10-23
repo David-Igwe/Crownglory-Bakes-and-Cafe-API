@@ -16,6 +16,8 @@ const cors = require("cors");
 // Enable CORS for all routes and origins
 app.use(cors());
 
+app.use(express.json());
+
 app.get("/menu", async (req, res) => {
   const menu = await Category.find({});
   res.send(menu);
@@ -40,9 +42,9 @@ app.get("/order/:orderId", async (req, res) => {
 });
 
 app.post("/order/new", async (req, res) => {
-  const newOrder = new Order(req.body);
+  const newOrder = await new Order(req.body);
   await newOrder.save();
-  res.end();
+  res.json(newOrder)
 });
 
 app.patch("/order/:_id", async (req, res) => {
