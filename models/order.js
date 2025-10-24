@@ -25,6 +25,14 @@ const orderSchema = new Schema({
         type: Number,
         required: true,
         min: 0
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    position: {
+        type: String,
+        required: true
     }
 })
 
