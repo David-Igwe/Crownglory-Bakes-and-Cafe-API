@@ -29,10 +29,6 @@ const orderSchema = new Schema({
     address: {
         type: String,
         required: true
-    },
-    position: {
-        type: String,
-        required: true
     }
 })
 
